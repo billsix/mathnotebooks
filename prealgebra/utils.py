@@ -32,25 +32,23 @@ sympy.init_printing(latex_printer=latex, use_latex="mathjax")
 from IPython.display import Math, display, Markdown
 
 
-def divide_mixed_fractions(
-    first_whole_number, first_numerator, first_denominator, second_whole_number, second_numerator, second_denominator
-):
+def divide_mixed_fractions(first, second):
     display(
         Math(
             "{"
-            + str(first_whole_number)
+            + str(first[0])
             + r"}{\frac{"
-            + str(first_numerator)
+            + str(first[1])
             + "}{"
-            + str(first_denominator)
+            + str(first[2])
             + "}}"
             + r"\div"
             + "{"
-            + str(second_whole_number)
+            + str(second[0])
             + r"}{\frac{"
-            + str(second_numerator)
+            + str(second[1])
             + "}{"
-            + str(second_denominator)
+            + str(second[2])
             + "}}"
         )
     )
@@ -60,15 +58,15 @@ def divide_mixed_fractions(
     display(
         Math(
             r"{\frac{"
-            + str(first_whole_number * first_denominator + first_numerator)
+            + str(first[0] * first[2] + first[1])
             + "}{"
-            + str(first_denominator)
+            + str(first[2])
             + "}}"
             + r"\div"
             + r"{\frac{"
-            + str(second_whole_number * second_denominator + second_numerator)
+            + str(second[0] * second[2] + second[1])
             + "}{"
-            + str(second_denominator)
+            + str(second[2])
             + "}}"
         )
     )
@@ -78,15 +76,15 @@ def divide_mixed_fractions(
     display(
         Math(
             r"{\frac{"
-            + str(first_whole_number * first_denominator + first_numerator)
+            + str(first[0] * first[2] + first[1])
             + "}{"
-            + str(first_denominator)
+            + str(first[2])
             + "}}"
             + r"\times"
             + r"{\frac{"
-            + str(second_denominator)
+            + str(second[2])
             + "}{"
-            + str(second_whole_number * second_denominator + second_numerator)
+            + str(second[0] * second[2] + second[1])
             + "}}"
         )
     )
@@ -96,9 +94,9 @@ def divide_mixed_fractions(
     display(
         Math(
             r"{\frac{"
-            + str((first_whole_number * first_denominator + first_numerator) * second_denominator)
+            + str((first[0] * first[2] + first[1]) * second[2])
             + "}{"
-            + str(first_denominator * (second_whole_number * second_denominator + second_numerator))
+            + str(first[2] * (second[0] * second[2] + second[1]))
             + "}}"
         )
     )
