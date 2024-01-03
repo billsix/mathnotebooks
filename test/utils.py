@@ -25,16 +25,28 @@ from galgebra.printer import latex
 # tell sympy to use our printing by default
 sympy.init_printing(latex_printer=latex, use_latex="mathjax")
 
-from IPython.display import Math, display, Markdown
+from IPython.display import Math, display
 
 
-def foo():
+def add_decimals(first, second):
+    first_whole, first_dec = first.split(".")
+    second_whole, second_dec = second.split(".")
+
     display(
-        Math(r"""\begin{array}{r}
-&124\\
-+\!\!\!\!\!\!&53\\
+        Math(
+            r"""\begin{align}
+"""
+            + first_whole
+            + r"""&."""
+            + first_dec
+            + r"""\\
+ +\quad """
+            + second_whole
+            + r"&."
+            + second_dec
+            + r"""\\
 \hline
-&177
-\end{array}"""
+177 &
+\end{align}"""
         )
     )
