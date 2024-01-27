@@ -12,7 +12,7 @@ autoflake8==0.4.1
 Babel==2.14.0
 backcall==0.2.0
 beautifulsoup4==4.12.3
-black==23.12.1
+black==24.1.0
 bleach==6.1.0
 certifi==2023.11.17
 cffi==1.16.0
@@ -31,7 +31,7 @@ flake8==7.0.0
 fonttools==4.47.2
 fqdn==1.5.1
 galgebra==0.5.0
-glfw==2.6.4
+glfw==2.6.5
 idna==3.6
 imgui==2.0.0
 ipykernel==6.29.0
@@ -55,7 +55,7 @@ jupyter_client==7.4.9
 jupyter_core==5.7.1
 jupyter_server==2.12.5
 jupyter_server_fileid==0.9.1
-jupyter_server_terminals==0.5.1
+jupyter_server_terminals==0.5.2
 jupyter_server_ydoc==0.8.0
 jupyterlab==3.6.7
 jupyterlab-materialdarker==0.6.1
@@ -80,11 +80,11 @@ nbclassic==1.0.0
 nbclient==0.9.0
 nbconvert==7.14.2
 nbformat==5.9.2
-nest-asyncio==1.5.9
+nest-asyncio==1.6.0
 notebook==6.5.6
 notebook_shim==0.2.3
 numpy==1.26.3
-overrides==7.4.0
+overrides==7.6.0
 packaging==23.2
 pandocfilters==1.5.1
 parso==0.8.3
