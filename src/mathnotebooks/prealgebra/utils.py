@@ -103,16 +103,36 @@ def divide_mixed_fractions(first, second):
     )
 
 
+def _add_decimals_split_decimals(first, second):
+    """Just for use with add_decimals"""
+
+    first_whole, first_dec = first.split(".")
+    second_whole, second_dec = second.split(".")
+
+    return (first_whole, first_dec), (second_whole, second_dec)
+
+
+def _add_decimals_actually_add_them(first_whole, first_dec, second_whole, second_dec):
+    """Just for use with add_decimals"""
+    the_len = max(len(first_dec), len(second_dec))
+    dec_added = str(int(first_dec) + int(second_dec))
+
+    if len(dec_added) > the_len:
+        extra_int = dec_added[:1]
+        dec_to_return = dec_added[1:]
+    else:
+        extra_int = "0"
+        dec_to_return = dec_added
+
+    whole_added = str(int(first_whole) + int(second_whole) + int(extra_int))
+
+    return whole_added, dec_to_return
+
+
 def add_decimals(first, second):
     display(Markdown("**Align the numbers on the decimal**"))
 
-    def _split_decimals(first, second):
-        first_whole, first_dec = first.split(".")
-        second_whole, second_dec = second.split(".")
-
-        return (first_whole, first_dec), (second_whole, second_dec)
-
-    (first_whole, first_dec), (second_whole, second_dec) = _split_decimals(first, second)
+    (first_whole, first_dec), (second_whole, second_dec) = _add_decimals_split_decimals(first, second)
 
     display(
         Math(
@@ -134,22 +154,7 @@ def add_decimals(first, second):
 
     display(Markdown("**Put zeros for placeholders**"))
 
-    def _split_decimals(first, second):
-        first_whole, first_dec = first.split(".")
-        second_whole, second_dec = second.split(".")
-
-        def _put_zeros_on_end(first_dec, second_dec):
-            max_len = max(len(first_dec), len(second_dec))
-            return (
-                first_dec + "".join(list(itertools.repeat("0", max_len - len(first_dec)))),
-                second_dec + "".join(list(itertools.repeat("0", max_len - len(second_dec)))),
-            )
-
-        first_dec_zero_padded, second_dec_zero_padded = _put_zeros_on_end(first_dec, second_dec)
-
-        return (first_whole, first_dec_zero_padded), (second_whole, second_dec_zero_padded)
-
-    (first_whole, first_dec), (second_whole, second_dec) = _split_decimals(first, second)
+    (first_whole, first_dec), (second_whole, second_dec) = _add_decimals_split_decimals(first, second)
 
     display(
         Math(
@@ -169,22 +174,7 @@ def add_decimals(first, second):
         )
     )
 
-    def _actually_add_them(first_whole, first_dec, second_whole, second_dec):
-        the_len = max(len(first_dec), len(second_dec))
-        dec_added = str(int(first_dec) + int(second_dec))
-
-        if len(dec_added) > the_len:
-            extra_int = dec_added[:1]
-            dec_to_return = dec_added[1:]
-        else:
-            extra_int = "0"
-            dec_to_return = dec_added
-
-        whole_added = str(int(first_whole) + int(second_whole) + int(extra_int))
-
-        return whole_added, dec_to_return
-
-    result_whole, result_dec = _actually_add_them(first_whole, first_dec, second_whole, second_dec)
+    result_whole, result_dec = _add_decimals_actually_add_them(first_whole, first_dec, second_whole, second_dec)
 
     display(Markdown("**Add like for integers**"))
 
@@ -212,16 +202,56 @@ def add_decimals(first, second):
     )
 
 
+def _subtract_decimals_split_decimals(first, second):
+    """Just for use within subtract_decimals"""
+    first_whole, first_dec = first.split(".")
+    second_whole, second_dec = second.split(".")
+
+    return (first_whole, first_dec), (second_whole, second_dec)
+
+
+def _subtract_decimals_put_zeros_on_end(first_dec, second_dec):
+    """Just for use within _subtract_decimals_split_decimals2"""
+    max_len = max(len(first_dec), len(second_dec))
+    return (
+        first_dec + "".join(list(itertools.repeat("0", max_len - len(first_dec)))),
+        second_dec + "".join(list(itertools.repeat("0", max_len - len(second_dec)))),
+    )
+
+
+def _subtract_decimals_split_decimals2(first, second):
+    """Just for use within subtract_decimals"""
+    first_whole, first_dec = first.split(".")
+    second_whole, second_dec = second.split(".")
+
+    first_dec_zero_padded, second_dec_zero_padded = _subtract_decimals_put_zeros_on_end(first_dec, second_dec)
+
+    return (first_whole, first_dec_zero_padded), (second_whole, second_dec_zero_padded)
+
+
+def _subtract_decimals_actually_subtract_them(first_whole, first_dec, second_whole, second_dec):
+
+    flip = False
+    if float(first_whole + "." + first_dec) < float(second_whole + "." + second_dec):
+        flip = True
+        first_whole, first_dec, second_whole, second_dec = second_whole, second_dec, first_whole, first_dec
+
+    to_subtract_from_whole = 0
+    dec_to_return = str(int(first_dec) - int(second_dec))
+    if (int(first_dec) - int(second_dec)) < 0:
+        the_len = max(len(first_dec), len(second_dec))
+        to_subtract_from_whole = 1
+        dec_to_return = str(10**the_len + int(dec_to_return))
+
+    whole_added = str(int(first_whole) - int(second_whole) - to_subtract_from_whole)
+
+    return "-" + whole_added if flip else whole_added, dec_to_return
+
+
 def subtract_decimals(first, second):
     display(Markdown("**Align the numbers on the decimal**"))
 
-    def _split_decimals(first, second):
-        first_whole, first_dec = first.split(".")
-        second_whole, second_dec = second.split(".")
-
-        return (first_whole, first_dec), (second_whole, second_dec)
-
-    (first_whole, first_dec), (second_whole, second_dec) = _split_decimals(first, second)
+    (first_whole, first_dec), (second_whole, second_dec) = _subtract_decimals_split_decimals(first, second)
 
     display(
         Math(
@@ -243,22 +273,7 @@ def subtract_decimals(first, second):
 
     display(Markdown("**Put zeros for placeholders**"))
 
-    def _split_decimals(first, second):
-        first_whole, first_dec = first.split(".")
-        second_whole, second_dec = second.split(".")
-
-        def _put_zeros_on_end(first_dec, second_dec):
-            max_len = max(len(first_dec), len(second_dec))
-            return (
-                first_dec + "".join(list(itertools.repeat("0", max_len - len(first_dec)))),
-                second_dec + "".join(list(itertools.repeat("0", max_len - len(second_dec)))),
-            )
-
-        first_dec_zero_padded, second_dec_zero_padded = _put_zeros_on_end(first_dec, second_dec)
-
-        return (first_whole, first_dec_zero_padded), (second_whole, second_dec_zero_padded)
-
-    (first_whole, first_dec), (second_whole, second_dec) = _split_decimals(first, second)
+    (first_whole, first_dec), (second_whole, second_dec) = _subtract_decimals_split_decimals2(first, second)
 
     display(
         Math(
@@ -278,25 +293,9 @@ def subtract_decimals(first, second):
         )
     )
 
-    def _actually_subtract_them(first_whole, first_dec, second_whole, second_dec):
-
-        flip = False
-        if float(first_whole + "." + first_dec) < float(second_whole + "." + second_dec):
-            flip = True
-            first_whole, first_dec, second_whole, second_dec = second_whole, second_dec, first_whole, first_dec
-
-        to_subtract_from_whole = 0
-        dec_to_return = str(int(first_dec) - int(second_dec))
-        if (int(first_dec) - int(second_dec)) < 0:
-            the_len = max(len(first_dec), len(second_dec))
-            to_subtract_from_whole = 1
-            dec_to_return = str(10**the_len + int(dec_to_return))
-
-        whole_added = str(int(first_whole) - int(second_whole) - to_subtract_from_whole)
-
-        return "-" + whole_added if flip else whole_added, dec_to_return
-
-    result_whole, result_dec = _actually_subtract_them(first_whole, first_dec, second_whole, second_dec)
+    result_whole, result_dec = _subtract_decimals_actually_subtract_them(
+        first_whole, first_dec, second_whole, second_dec
+    )
 
     display(Markdown("**Subtract like for integers**"))
 
