@@ -112,6 +112,23 @@ def _add_decimals_split_decimals(first, second):
     return (first_whole, first_dec), (second_whole, second_dec)
 
 
+def _add_decimals_put_zeros_on_end(first_dec, second_dec):
+    max_len = max(len(first_dec), len(second_dec))
+    return (
+        first_dec + "".join(list(itertools.repeat("0", max_len - len(first_dec)))),
+        second_dec + "".join(list(itertools.repeat("0", max_len - len(second_dec)))),
+    )
+
+
+def _add_decimals_split_decimals2(first, second):
+    first_whole, first_dec = first.split(".")
+    second_whole, second_dec = second.split(".")
+
+    first_dec_zero_padded, second_dec_zero_padded = _add_decimals_put_zeros_on_end(first_dec, second_dec)
+
+    return (first_whole, first_dec_zero_padded), (second_whole, second_dec_zero_padded)
+
+
 def _add_decimals_actually_add_them(first_whole, first_dec, second_whole, second_dec):
     """Just for use with add_decimals"""
     the_len = max(len(first_dec), len(second_dec))
@@ -154,7 +171,7 @@ def add_decimals(first, second):
 
     display(Markdown("**Put zeros for placeholders**"))
 
-    (first_whole, first_dec), (second_whole, second_dec) = _add_decimals_split_decimals(first, second)
+    (first_whole, first_dec), (second_whole, second_dec) = _add_decimals_split_decimals2(first, second)
 
     display(
         Math(
