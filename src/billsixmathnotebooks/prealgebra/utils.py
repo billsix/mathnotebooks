@@ -26,6 +26,7 @@
 import sympy
 import itertools
 from galgebra.printer import latex
+from typing import Tuple
 
 # tell sympy to use our printing by default
 sympy.init_printing(latex_printer=latex, use_latex="mathjax")
@@ -103,7 +104,7 @@ def divide_mixed_fractions(first, second):
     )
 
 
-def _add_decimals_split_decimals(first, second):
+def _add_decimals_split_decimals(first: str, second: str) -> Tuple[Tuple[str, str], Tuple[str, str]]:
     """Just for use with add_decimals"""
 
     first_whole, first_dec = first.split(".")
@@ -129,7 +130,9 @@ def _add_decimals_split_decimals2(first, second):
     return (first_whole, first_dec_zero_padded), (second_whole, second_dec_zero_padded)
 
 
-def _add_decimals_actually_add_them(first_whole, first_dec, second_whole, second_dec):
+def _add_decimals_actually_add_them(
+    first_whole: str, first_dec: str, second_whole: str, second_dec: str
+) -> Tuple[str, str]:
     """Just for use with add_decimals"""
     the_len = max(len(first_dec), len(second_dec))
     dec_added = str(int(first_dec) + int(second_dec))
@@ -219,7 +222,7 @@ def add_decimals(first, second):
     )
 
 
-def _subtract_decimals_split_decimals(first, second):
+def _subtract_decimals_split_decimals(first: str, second: str) -> Tuple[Tuple[str, str], Tuple[str, str]]:
     """Just for use within subtract_decimals"""
     first_whole, first_dec = first.split(".")
     second_whole, second_dec = second.split(".")
@@ -227,7 +230,7 @@ def _subtract_decimals_split_decimals(first, second):
     return (first_whole, first_dec), (second_whole, second_dec)
 
 
-def _subtract_decimals_put_zeros_on_end(first_dec, second_dec):
+def _subtract_decimals_put_zeros_on_end(first_dec: str, second_dec: str) -> Tuple[str, str]:
     """Just for use within _subtract_decimals_split_decimals2"""
     max_len = max(len(first_dec), len(second_dec))
     return (
@@ -236,7 +239,7 @@ def _subtract_decimals_put_zeros_on_end(first_dec, second_dec):
     )
 
 
-def _subtract_decimals_split_decimals2(first, second):
+def _subtract_decimals_split_decimals2(first: str, second: str) -> Tuple[Tuple[str, str], Tuple[str, str]]:
     """Just for use within subtract_decimals"""
     first_whole, first_dec = first.split(".")
     second_whole, second_dec = second.split(".")
@@ -246,7 +249,9 @@ def _subtract_decimals_split_decimals2(first, second):
     return (first_whole, first_dec_zero_padded), (second_whole, second_dec_zero_padded)
 
 
-def _subtract_decimals_actually_subtract_them(first_whole, first_dec, second_whole, second_dec):
+def _subtract_decimals_actually_subtract_them(
+    first_whole: str, first_dec: str, second_whole: str, second_dec: str
+) -> Tuple[str, str]:
 
     flip = False
     if float(first_whole + "." + first_dec) < float(second_whole + "." + second_dec):
