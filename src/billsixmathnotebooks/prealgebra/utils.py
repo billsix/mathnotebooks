@@ -113,7 +113,7 @@ def _add_decimals_split_decimals(first: str, second: str) -> Tuple[Tuple[str, st
     return (first_whole, first_dec), (second_whole, second_dec)
 
 
-def _add_decimals_put_zeros_on_end(first_dec, second_dec):
+def _add_decimals_put_zeros_on_end(first_dec: str, second_dec: str) -> Tuple[str, str]:
     max_len = max(len(first_dec), len(second_dec))
     return (
         first_dec + "".join(list(itertools.repeat("0", max_len - len(first_dec)))),
