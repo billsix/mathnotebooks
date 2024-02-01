@@ -1,6 +1,21 @@
+[project]
+name = "billsixmathnotebooks"
+version = "0.0.1"
+authors = [{name="William Emerison Six", email="billsix@gmail.com"}]
+description = "Math notebooks to explain how to solve pre-algebra problems"
+
+dependencies = [
+    "galgebra==0.5.0",
+    "jupyterlab==4.0.12",
+    "mathjax==0.1.2",
+]
+
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest]
 testpaths = ["tests"]
