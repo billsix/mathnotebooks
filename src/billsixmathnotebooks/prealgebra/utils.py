@@ -252,7 +252,6 @@ def _subtract_decimals_split_decimals2(first: str, second: str) -> Tuple[Tuple[s
 def _subtract_decimals_actually_subtract_them(
     first_whole: str, first_dec: str, second_whole: str, second_dec: str
 ) -> Tuple[str, str]:
-
     flip = False
     if float(first_whole + "." + first_dec) < float(second_whole + "." + second_dec):
         flip = True
