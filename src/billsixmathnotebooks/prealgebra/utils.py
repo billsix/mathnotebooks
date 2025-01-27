@@ -209,19 +209,11 @@ def subtract_decimals(first, second):
 
     display(
         Math(
-            r"""\begin{align}
-"""
-            + first_whole
-            + r"""&."""
-            + first_dec
-            + r"""\\
- -\quad """
-            + second_whole
-            + r"&."
-            + second_dec
-            + r"""\\
-\hline
-\end{align}"""
+            f"""\\begin{{align}}
+{first_whole}&.{first_dec}\\\\
+ -\\quad {second_whole}&.{second_dec}\\\\
+\\hline
+\\end{{align}}"""
         )
     )
 
@@ -231,19 +223,11 @@ def subtract_decimals(first, second):
 
     display(
         Math(
-            r"""\begin{align}
-"""
-            + first_whole
-            + r"""&."""
-            + first_dec
-            + r"""\\
- -\quad """
-            + second_whole
-            + r"&."
-            + second_dec
-            + r"""\\
-\hline
-\end{align}"""
+            f"""\\begin{{align}}
+{first_whole}&.{first_dec}\\\\
+ -\\quad {second_whole}&.{second_dec}\\\\
+\\hline
+\\end{{align}}"""
         )
     )
 
@@ -255,23 +239,11 @@ def subtract_decimals(first, second):
 
     display(
         Math(
-            r"""\begin{align}
-"""
-            + first_whole
-            + r"""&."""
-            + first_dec
-            + r"""\\
- -\quad """
-            + second_whole
-            + r"&."
-            + second_dec
-            + r"""\\
-\hline
-"""
-            + result_whole
-            + r""" &."""
-            + result_dec
-            + r"""
-\end{align}"""
+            f"""\\begin{{align}}
+{first_whole}&.{first_dec}\\\\
+ -\\quad {second_whole}&.{second_dec}\\\\
+\\hline
+{result_whole} &.{result_dec}
+\\end{{align}}"""
         )
     )
