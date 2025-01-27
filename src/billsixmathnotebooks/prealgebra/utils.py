@@ -37,21 +37,8 @@ from IPython.display import Math, display, Markdown
 def divide_mixed_fractions(first, second):
     display(
         Math(
-            "{"
-            + str(first[0])
-            + r"}{\frac{"
-            + str(first[1])
-            + "}{"
-            + str(first[2])
-            + "}}"
-            + r"\div"
-            + "{"
-            + str(second[0])
-            + r"}{\frac{"
-            + str(second[1])
-            + "}{"
-            + str(second[2])
-            + "}}"
+            f"{{{first[0]}}}{{\\frac{{{first[1]}}}{{{first[2]}}}}}"
+            f"\\div{{{second[0]}}}{{\\frac{{{second[1]}}}{{{second[2]}}}}}"
         )
     )
 
@@ -59,17 +46,8 @@ def divide_mixed_fractions(first, second):
 
     display(
         Math(
-            r"{\frac{"
-            + str(first[0] * first[2] + first[1])
-            + "}{"
-            + str(first[2])
-            + "}}"
-            + r"\div"
-            + r"{\frac{"
-            + str(second[0] * second[2] + second[1])
-            + "}{"
-            + str(second[2])
-            + "}}"
+            f"{{\\frac{{{first[0] * first[2] + first[1]}}}{{{first[2]}}}}}"
+            f"\\div{{\\frac{{{second[0] * second[2] + second[1]}}}{{{second[2]}}}}}"
         )
     )
 
@@ -77,17 +55,8 @@ def divide_mixed_fractions(first, second):
 
     display(
         Math(
-            r"{\frac{"
-            + str(first[0] * first[2] + first[1])
-            + "}{"
-            + str(first[2])
-            + "}}"
-            + r"\times"
-            + r"{\frac{"
-            + str(second[2])
-            + "}{"
-            + str(second[0] * second[2] + second[1])
-            + "}}"
+            f"{{\\frac{{{first[0] * first[2] + first[1]}}}{{{first[2]}}}}}"
+            f"\\times{{\\frac{{{second[2]}}}{{{second[0] * second[2] + second[1]}}}}}"
         )
     )
 
@@ -95,29 +64,22 @@ def divide_mixed_fractions(first, second):
 
     display(
         Math(
-            r"{\frac{"
-            + str((first[0] * first[2] + first[1]) * second[2])
-            + "}{"
-            + str(first[2] * (second[0] * second[2] + second[1]))
-            + "}}"
+            f"{{\\frac{{{(first[0] * first[2] + first[1]) * second[2]}}}{{{first[2] * (second[0] * second[2] + second[1])}}}}}"
         )
     )
 
 
 def _add_decimals_split_decimals(first: str, second: str) -> Tuple[Tuple[str, str], Tuple[str, str]]:
-    """Just for use with add_decimals"""
-
     first_whole, first_dec = first.split(".")
     second_whole, second_dec = second.split(".")
-
     return (first_whole, first_dec), (second_whole, second_dec)
 
 
 def _add_decimals_put_zeros_on_end(first_dec: str, second_dec: str) -> Tuple[str, str]:
     max_len = max(len(first_dec), len(second_dec))
     return (
-        first_dec + "".join(list(itertools.repeat("0", max_len - len(first_dec)))),
-        second_dec + "".join(list(itertools.repeat("0", max_len - len(second_dec)))),
+        first_dec + "0" * (max_len - len(first_dec)),
+        second_dec + "0" * (max_len - len(second_dec)),
     )
 
 
@@ -133,7 +95,6 @@ def _add_decimals_split_decimals2(first, second):
 def _add_decimals_actually_add_them(
     first_whole: str, first_dec: str, second_whole: str, second_dec: str
 ) -> Tuple[str, str]:
-    """Just for use with add_decimals"""
     the_len = max(len(first_dec), len(second_dec))
     dec_added = str(int(first_dec) + int(second_dec))
 
@@ -156,19 +117,11 @@ def add_decimals(first, second):
 
     display(
         Math(
-            r"""\begin{align}
-"""
-            + first_whole
-            + r"""&."""
-            + first_dec
-            + r"""\\
- +\quad """
-            + second_whole
-            + r"&."
-            + second_dec
-            + r"""\\
-\hline
-\end{align}"""
+            f"""\\begin{{align}}
+{first_whole}&.{first_dec}\\\\
+ +\\quad {second_whole}&.{second_dec}\\\\
+\\hline
+\\end{{align}}"""
         )
     )
 
@@ -178,19 +131,11 @@ def add_decimals(first, second):
 
     display(
         Math(
-            r"""\begin{align}
-"""
-            + first_whole
-            + r"""&."""
-            + first_dec
-            + r"""\\
- +\quad """
-            + second_whole
-            + r"&."
-            + second_dec
-            + r"""\\
-\hline
-\end{align}"""
+            f"""\\begin{{align}}
+{first_whole}&.{first_dec}\\\\
+ +\\quad {second_whole}&.{second_dec}\\\\
+\\hline
+\\end{{align}}"""
         )
     )
 
@@ -200,24 +145,12 @@ def add_decimals(first, second):
 
     display(
         Math(
-            r"""\begin{align}
-"""
-            + first_whole
-            + r"""&."""
-            + first_dec
-            + r"""\\
- +\quad """
-            + second_whole
-            + r"&."
-            + second_dec
-            + r"""\\
-\hline
-"""
-            + result_whole
-            + r""" &."""
-            + result_dec
-            + r"""
-\end{align}"""
+            f"""\\begin{{align}}
+{first_whole}&.{first_dec}\\\\
+ +\\quad {second_whole}&.{second_dec}\\\\
+\\hline
+{result_whole} &.{result_dec}
+\\end{{align}}"""
         )
     )
 
