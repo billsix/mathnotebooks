@@ -6,7 +6,7 @@ description = "Math notebooks to explain how to solve pre-algebra problems"
 
 dependencies = [
     "galgebra==0.5.2",
-    "jupyterlab==4.1.8",
+    "jupyterlab==4.3.4",
     "mathjax==0.1.2",
 ]
 
